@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 // Ruta de la base de datos. Esta es local, podría ser la ruta de mongo atlas.
-const DB_URL = "";
+const DB_URL = "mongodb://localhost:20017";
 
 if (!DB_URL) throw new Error("No se encuentra la URL a la base de datos");
 

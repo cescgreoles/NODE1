@@ -61,6 +61,8 @@ const characters = [
   },
 ];
 
+// console.log(characters);
+
 /**
  * 1. Conectaremos con la db
  * 2. Haremos una búsqueda para ver si tenemos personajes
