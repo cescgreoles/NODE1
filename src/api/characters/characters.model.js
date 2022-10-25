@@ -1,3 +1,4 @@
+//  CONSTRUIMOS EL MODELO/ESQUEMA DE NUESTRA API
 const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;

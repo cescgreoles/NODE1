@@ -5,16 +5,32 @@ const characterRoutes = require("./src/api/characters/characters.routes");
 
 db.connectDb();
 
+//  CREA EL SERVIDOR
 const server = express();
 const PORT = 3000;
 
+//  GRACIAS A ESTO REQ.BODY FUNCIONA
 server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
 
+// AQUI LAS RUTAS
 server.use("/", indexRoutes);
 server.use("/characters", characterRoutes);
 
-// RUTA DONDE SE QUIERE QUE LO BUSQUE
+// SIRVE CUANDO NO ENCONTRAMOS LA RUTA ESPERADA (404 NOT FOUND)
+server.use("*", (req, res) => {
+  return res.status(404).json("Ruta no encontrada");
+});
+// CONTROLADOR DE ERRORES
+server.use((error, req, res, next) => {
+  return res
+    .status(error.status || 500)
+    .json(error.message || "unexpected error");
+  // console.log("ERROR NEXT NO ERES EL CANDIDATO -->", error.message);
+  // return res.status(418).json("Juan decia la verdad");
+});
+
+// ARRANCA EL SERVIDOR
 server.listen(PORT, () => {
   console.log(`Servidor a todo gas en http://localhost:${PORT}`);
 });
