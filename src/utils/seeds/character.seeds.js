@@ -61,7 +61,7 @@ const characters = [
   },
 ];
 
-// console.log(characters);
+// console.log(characters); COMPROVACIÓN DE CHARACTERS
 
 /**
  * 1. Conectaremos con la db
