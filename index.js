@@ -2,6 +2,7 @@ const express = require("express");
 const db = require("./src/utils/database/db");
 const indexRoutes = require("./src/api/index/index.routes");
 const characterRoutes = require("./src/api/characters/characters.routes");
+const racesRoutes = require("./src/api/races/races.routes");
 
 db.connectDb();
 
@@ -16,6 +17,7 @@ server.use(express.urlencoded({ extended: false }));
 // AQUI LAS RUTAS
 server.use("/", indexRoutes);
 server.use("/characters", characterRoutes);
+server.use("/races", racesRoutes);
 
 // SIRVE CUANDO NO ENCONTRAMOS LA RUTA ESPERADA (404 NOT FOUND)
 server.use("*", (req, res) => {
