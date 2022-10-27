@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "seedCharacters": "node ./src/utils/seeds/character.seeds.js",
+    "seedMovies": "node ./src/utils/seeds/movies.seeds.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

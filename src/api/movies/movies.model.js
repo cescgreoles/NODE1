@@ -6,8 +6,9 @@ const Schema = mongoose.Schema;
 const moviesSchema = new Schema(
   {
     title: { type: String, required: true },
+    img: { type: String, required: false },
     director: { type: String, required: true },
-    year: { type: Number, min: 0, max: 12 },
+    year: { type: Number },
     genre: { type: String },
   },
   {
