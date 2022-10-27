@@ -1,99 +1,65 @@
 const { mongoose } = require("mongoose");
-const Character = require("../../api/characters/characters.model");
+const Movie = require("../../api/movies/movies.model");
 const { DB_URL } = require("../database/db");
 
-const characters = [
+const movies = [
   {
-    name: "Goku",
-    race: "saiyan",
-    universe: 7,
-    transform: true,
-    genre: "male",
+    title: "The Matrix",
+    director: "Hermanas Wachowski",
+    year: 1999,
+    genre: "Acción",
   },
   {
-    name: "Piccolo",
-    race: "namekian",
-    universe: 7,
-    transform: true,
-    genre: "namekian",
+    title: "The Matrix Reloaded",
+    director: "Hermanas Wachowski",
+    year: 2003,
+    genre: "Acción",
   },
   {
-    name: "Cabba",
-    race: "saiyan",
-    universe: 6,
-    transform: true,
-    genre: "male",
+    title: "Buscando a Nemo",
+    director: "Andrew Stanton",
+    year: 2003,
+    genre: "Animación",
   },
   {
-    name: "Kale",
-    race: "saiyan",
-    universe: 6,
-    transform: true,
-    genre: "female",
+    title: "Buscando a Dory",
+    director: "Andrew Stanton",
+    year: 2016,
+    genre: "Animación",
   },
   {
-    name: "A18",
-    race: "android",
-    universe: 7,
-    transform: false,
-    genre: "female",
+    title: "Interestelar",
+    director: "Christopher Nolan",
+    year: 2014,
+    genre: "Ciencia ficción",
   },
   {
-    name: "Krillin",
-    race: "human",
-    universe: 7,
-    transform: false,
-    genre: "male",
-  },
-  {
-    name: "Jiren",
-    race: "unknown",
-    universe: 11,
-    transform: false,
-    genre: "male",
-  },
-  {
-    name: "Zen-oh",
-    race: "unknown",
-    universe: 0,
-    transform: false,
-    genre: "genderless",
+    title: "50 primeras citas",
+    director: "Peter Segal",
+    year: 2004,
+    genre: "Comedia romántica",
   },
 ];
-
-// console.log(characters); COMPROVACIÓN DE CHARACTERS
-
-/**
- * 1. Conectaremos con la db
- * 2. Haremos una búsqueda para ver si tenemos personajes
- *     2.1 si NO tenemos personajes -> continuamos al siguiente paso
- *     2.2 si SI tenemos personajes -> Borramos la colección (drop)
- * 3. Escribir los personajes del array characters
- * 4. Informaremos que hemos escrito los personajes
- * 5. Desconectaremos de la base de datos.
- */
 
 mongoose
   .connect(DB_URL)
   .then(async () => {
-    const allCharacters = await Character.find().lean();
+    const allMovies = await Movie.find().lean();
 
-    if (!allCharacters.length) {
+    if (!allMovies.length) {
       console.log("[seed]: No se encuentran personajes, continuo...");
     } else {
-      console.log(`[seed]: Encontrados ${allCharacters.length} personajes.`);
-      await Character.collection.drop();
-      console.log("[seed]: Colección Characters eliminada correctamente");
+      console.log(`[seed]: Encontrados ${allMovies.length} personajes.`);
+      await Movie.collection.drop();
+      console.log("[seed]: Colección Movies eliminada correctamente");
     }
   })
   .catch((error) =>
     console.log("[seed]: Error eliminando la colección -->", error)
   )
   .then(async () => {
-    await Character.insertMany(characters);
-    console.log("[seed]: Nuevos personajes añadidos con éxito");
+    await Movie.insertMany(movies);
+    console.log("[seed]: Nuevas peliculas añadidas con éxito");
   })
-  .catch((error) =>
-    console.log("[seed]: Error añadiendo los personajes", error)
-  )
+  .catch((error) => console.log("[seed]: Error añadiendo las peliculas", error))
   .finally(() => mongoose.disconnect());

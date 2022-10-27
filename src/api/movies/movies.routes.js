@@ -1,13 +1,13 @@
 const express = require("express");
-const Character = require("./characters.model");
+const Movie = require("./movies.model");
 
 const router = express.Router();
 
 router.get("/", async (req, res, next) => {
   try {
-    const allCharacters = await Character.find();
-    console.log(allCharacters);
-    return res.status(200).json(allCharacters);
+    const allMovies = await Movie.find();
+    console.log(allMovies);
+    return res.status(200).json(allMovies);
   } catch (error) {
     return next(error);
     // return res.status(500).json("Error en el servidor");
@@ -17,9 +17,9 @@ router.get("/", async (req, res, next) => {
 router.get("/:id", async (req, res, next) => {
   try {
     const id = req.params.id;
-    const characterToFind = await Character.findById(id);
-    console.log(characterToFind);
-    return res.status(200).json(characterToFind);
+    const movieToFind = await Movie.findById(id);
+    console.log(movieToFind);
+    return res.status(200).json(movieToFind);
   } catch (error) {
     const customErorr = new Error("hahahahaha has sido invadido");
     return next(customErorr);
@@ -27,26 +27,25 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-//  Para crear nuevos characteres
 router.post("/create", async (req, res, next) => {
   try {
-    const character = req.body;
-    const newCharacter = new Character(character);
-    const created = await newCharacter.save();
+    const movie = req.body;
+    const newMovie = new Movie(movie);
+    const created = await newMovie.save();
     return res.status(201).json(created);
   } catch (error) {
     return next(error);
     // return res.status(500).json("Error al crear el personaje");
   }
 });
-//  Para eliminar un character con su id
+
 router.post("/delete/:id", async (req, res, next) => {
   try {
     const id = req.params.id;
-    const characterToDelete = await Character.findByIdAndDelete(id);
+    const movieToDelete = await Movie.findByIdAndDelete(id);
     return (
       res.status(204),
-      json("Se ha conseguido borrar el personaje", characterToDelete)
+      json("Se ha conseguido borrar el personaje", movieToDelete)
     );
   } catch (error) {
     return next(error);
